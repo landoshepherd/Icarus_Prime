@@ -14,24 +14,22 @@ if(NOT OBJCOPY)
 endif()
 
 # Target architecture and common flags for STM32F103 (Cortex-M3)
-# Use lists (no quotes) so CMake passes each flag as a separate argument
-set(MCU_FLAGS -mcpu=cortex-m3 -mthumb)
-set(COMMON_FLAGS -Wall -Wextra -ffunction-sections -fdata-sections -g ${MCU_FLAGS})
-set(CMAKE_C_FLAGS ${COMMON_FLAGS} -std=gnu11)
-set(CMAKE_CXX_FLAGS ${COMMON_FLAGS} -std=gnu++17)
-set(CMAKE_EXE_LINKER_FLAGS -Wl,--gc-sections ${MCPU_FLAGS})
+set(MCU_FLAGS "-mcpu=cortex-m3 -mthumb")
+set(COMMON_FLAGS "-Wall -Wextra -ffunction-sections -fdata-sections -g ${MCU_FLAGS}")
+set(CMAKE_C_FLAGS "${COMMON_FLAGS} -std=gnu11")
+set(CMAKE_CXX_FLAGS "${COMMON_FLAGS} -std=gnu++11")
+set(CMAKE_EXE_LINKER_FLAGS "-Wl,--gc-sections ${MCU_FLAGS}")
 
 # Optimization and defines
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release)
 endif()
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
-  # Append optimization flags to lists
-  list(APPEND CMAKE_C_FLAGS -O2)
-  list(APPEND CMAKE_CXX_FLAGS -O2)
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O2")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2")
 else()
-  list(APPEND CMAKE_C_FLAGS -O0 -Og)
-  list(APPEND CMAKE_CXX_FLAGS -O0 -Og)
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O0 -Og")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -Og")
 endif()
 
 # Source directories
