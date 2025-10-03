@@ -1,25 +1,24 @@
 #!/bin/bash
-# Exit immediately if a command fails
+# Exit immediately if a command exits with a non-zero status.
 set -e
 
-echo "--- Starting Headless Build ---"
+# --- 1. Define Build Configuration ---
+BUILD_DIR="build"
+BUILD_TYPE="Release" # Can be switched to "Debug"
 
-# Path to the STM32CubeIDE headless builder executable inside the Docker container
-CUBE_IDE_HEADLESS="$CUBEIDE_DIR/stm32cubeidec"
+echo "--- Configuring Project with CMake ---"
 
-# The name of your project as it appears in STM32CubeIDE
-# IMPORTANT: Change this to your actual project folder name
-PROJECT_NAME="icarus_prime"
-BUILD_CONFIG="Release" # Or "Release"
+# This command creates a 'build' directory, configures the project,
+# and generates the Makefiles inside it.
+cmake -S . -B "$BUILD_DIR" -DCMAKE_BUILD_TYPE="$BUILD_TYPE"
 
-# Build the project using the headless application
-$CUBE_IDE_HEADLESS --launcher.suppressErrors -nosplash \
--application org.eclipse.cdt.managedbuilder.core.headlessbuild \
--import . \
--build "${PROJECT_NAME}/${BUILD_CONFIG}"
+echo "--- Compiling Project ---"
+
+# This command runs the underlying 'make' command from within the build directory.
+cmake --build "$BUILD_DIR"
 
 echo "--- Build Successful ---"
 
-# List the output files to verify
-echo "--- Build Artifacts ---"
-ls -l "${BUILD_CONFIG}/"
+# List the output files to verify the firmware was created.
+echo "--- Build Artifacts in '$BUILD_DIR' ---"
+ls -l "$BUILD_DIR"
