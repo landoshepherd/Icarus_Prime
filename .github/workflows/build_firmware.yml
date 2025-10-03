@@ -29,7 +29,7 @@ jobs:
       with:
         name: firmware-binaries
         path: |
-          Release/*.elf
-          Release/*.bin
-          Release/*.hex
+          *.elf
+          *.bin
+          *.hex
         if-no-files-found: error # Fail the workflow if the build produced no output
