@@ -6,9 +6,9 @@ set -e
 BUILD_DIR="icarus_prime/"
 
 echo "--- Navigating to Build Directory: $BUILD_DIR ---"
-
-ls -l
 cd "$BUILD_DIR"
+ls -l
+
 
 echo "--- Compiling Project with Make ---"
 
