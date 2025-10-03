@@ -1,0 +1,34 @@
+name: Build STM32 Firmware
+
+on:
+  push:
+    branches: [ "main"]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-firmware:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Build Docker Image
+      run: docker build -t stm32-builder .
+
+    - name: Run Build Script in Docker Container
+      run: |
+        # Mount the current directory into the container's /project directory
+        # and run the build script.
+        docker run --rm -v "${{ github.workspace }}:/project" stm32-builder ci/build.sh
+
+    - name: Upload Firmware Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: firmware-binaries
+        path: |
+          Release/*.elf
+          Release/*.bin
+          Release/*.hex
+        if-no-files-found: error # Fail the workflow if the build produced no output
