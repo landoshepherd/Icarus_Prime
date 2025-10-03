@@ -38,3 +38,4 @@ echo "--- Build Successful ---"
 
 echo "--- Build Artifacts ---"
 ls -l .
+echo $PWD
