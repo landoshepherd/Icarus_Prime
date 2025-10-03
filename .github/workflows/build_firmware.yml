@@ -28,6 +28,10 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: firmware-binaries
+        # Upload any firmware built under the project's build output directory.
+        # The CMake build places artifacts under icarus_prime/Debug/bin by default.
         path: |
-          ./icarus_prime.elf
+          icarus_prime/Debug/bin/*.elf
+          icarus_prime/Debug/bin/*.bin
+          icarus_prime/Debug/bin/*.hex
         if-no-files-found: error # Fail the workflow if the build produced no output
