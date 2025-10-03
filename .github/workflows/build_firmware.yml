@@ -29,7 +29,5 @@ jobs:
       with:
         name: firmware-binaries
         path: |
-          *.elf
-          *.bin
-          *.hex
+          icarus_prime.elf
         if-no-files-found: error # Fail the workflow if the build produced no output
