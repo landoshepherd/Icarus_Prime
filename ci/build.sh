@@ -13,6 +13,7 @@ echo "Repo root: $REPO_ROOT"
 BUILD_DIR="$REPO_ROOT/icarus_prime/Debug"
 
 echo "--- Navigating to Build Directory: $BUILD_DIR ---"
+cd ..
 ls -l
 cd "$BUILD_DIR"
 
