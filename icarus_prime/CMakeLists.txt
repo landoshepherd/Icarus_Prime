@@ -37,6 +37,11 @@ target_compile_options(icarus_prime.elf PRIVATE
     $<$<CONFIG:Debug>:-O0;-Og>
 )
 
+target_compile_definitions(icarus_prime.elf PRIVATE
+	STM32F103xB
+	USE_HAL_DRIVER
+)
+
 # --- Target-Specific Linker Options ---
 # Set the linker script for the target.
 set(LINKER_SCRIPT "${CMAKE_SOURCE_DIR}/STM32F103C8TX_FLASH.ld")
@@ -52,7 +57,6 @@ else()
 endif()
 
 # --- Post-build Commands ---
-# This part is already excellent.
 add_custom_command(TARGET icarus_prime.elf POST_BUILD
   COMMAND ${CMAKE_OBJCOPY} -O binary $<TARGET_FILE:icarus_prime.elf> $<TARGET_FILE_DIR:icarus_prime.elf>/icarus_prime.bin
   COMMAND ${CMAKE_OBJCOPY} -O ihex $<TARGET_FILE:icarus_prime.elf> $<TARGET_FILE_DIR:icarus_prime.elf>/icarus_prime.hex
