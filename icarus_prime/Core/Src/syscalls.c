@@ -58,11 +58,21 @@ int _kill(int pid, int sig)
   return -1;
 }
 
-void _exit (int status)
+/* Ensure C linkage if this file is ever compiled as C++ and mark as used/noreturn so
+   the linker doesn't discard it when using --gc-sections. */
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+__attribute__((used, noreturn)) void _exit (int status)
 {
   _kill(status, -1);
   while (1) {}    /* Make sure we hang here */
 }
+
+#ifdef __cplusplus
+}
+#endif
 
 __attribute__((weak)) int _read(int file, char *ptr, int len)
 {
