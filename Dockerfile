@@ -8,6 +8,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y \
     build-essential \
     wget \
+    curl \
+    ca-certificates \
     unzip \
     libncurses5 \
     && rm -rf /var/lib/apt/lists/*
@@ -23,7 +25,7 @@ RUN wget -qO- "${ARM_TOOLCHAIN_URL}" | tar -xJ -C /opt \
 ENV CUBEIDE_INSTALLER_URL="https://dl.st.com/st-web-ui/STM32CubeIDE/1.15.1/en.st-stm32cubeide_1.15.1_21096_20240412_1049_amd64.deb_bundle.sh"
 ENV CUBEIDE_DIR="/opt/st/stm32cubeide_1.15.1"
 
-RUN wget -qO /tmp/cubeide_installer.sh "${CUBEIDE_INSTALLER_URL}" \
+RUN curl -fSL --retry 5 --retry-delay 5 -o /tmp/cubeide_installer.sh "${CUBEIDE_INSTALLER_URL}" \
     && chmod +x /tmp/cubeide_installer.sh \
     # Run the installer in silent mode to avoid GUI prompts
     && /tmp/cubeide_installer.sh --accept-licenses --silent \
