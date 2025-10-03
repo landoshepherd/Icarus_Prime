@@ -21,4 +21,4 @@ RUN wget -qO- "${ARM_TOOLCHAIN_URL}" | tar -xJ -C /opt \
     && ln -s /opt/arm-gnu-toolchain-*/bin/* /usr/local/bin/
 
 # Set the working directory for our project code
-WORKDIR /project
+WORKDIR /Icarus_Prime

@@ -4,10 +4,8 @@ set -e
 
 echo "--- Navigating to Build Directory ---"
 
-pwd
-
 # Change to the directory containing the Makefile
-cd ../icarus_prime/Debug/
+cd icarus_prime/Debug/
 
 echo "--- Compiling Project with Make ---"
 
