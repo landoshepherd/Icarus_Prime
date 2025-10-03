@@ -20,3 +20,9 @@ set(CMAKE_EXE_LINKER_FLAGS "-mcpu=cortex-m3 -mthumb -Wl,--gc-sections")
 set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
+
+# When cross-compiling for bare-metal targets, CMake's try_compile may
+# attempt to link test executables which require host libc functions like
+# _exit. Force try-compile to build static libraries instead to avoid
+# calling the linker for test executables.
+set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
