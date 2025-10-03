@@ -21,7 +21,8 @@ jobs:
       run: |
         # Mount the current directory into the container's /project directory
         # and run the build script.
-        docker run --rm -v "${{ github.workspace }}:/project" stm32-builder ci/build.sh
+        # Run via bash to avoid permission issues if the script does not have the executable bit set
+        docker run --rm -v "${{ github.workspace }}:/project" stm32-builder bash /project/ci/build.sh
 
     - name: Upload Firmware Artifacts
       uses: actions/upload-artifact@v4
