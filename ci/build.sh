@@ -7,6 +7,8 @@ echo "--- Navigating to Build Directory ---"
 # Change to the directory containing the Makefile
 cd ../icarus_prime/Debug/
 
+pwd
+
 echo "--- Compiling Project with Make ---"
 
 # Run the make command to build all targets using 9 parallel jobs
