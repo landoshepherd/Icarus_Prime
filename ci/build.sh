@@ -3,7 +3,7 @@
 set -e
 
 # Desired build directory
-BUILD_DIR="Icarus_Prime/icarus_prime/Debug"
+BUILD_DIR="icarus_prime/Debug"
 
 echo "--- Navigating to Build Directory: $BUILD_DIR ---"
 
