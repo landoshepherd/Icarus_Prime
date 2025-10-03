@@ -3,7 +3,7 @@
 set -e
 
 echo "--- Navigating to Build Directory ---"
-
+echo $PWD
 # Change to the directory containing the Makefile
 cd icarus_prime/Debug/
 
