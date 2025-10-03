@@ -7,6 +7,7 @@ BUILD_DIR="Icarus_Prime/icarus_prime/Debug"
 
 echo "--- Navigating to Build Directory: $BUILD_DIR ---"
 cd ..
+cd Icarus_Prime
 ls -l
 cd "$BUILD_DIR"
 
