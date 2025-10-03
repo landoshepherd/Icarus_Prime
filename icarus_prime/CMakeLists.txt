@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.13)
 
-project(icarus_prime C ASM)
+project(icarus_prime LANGUAGES C CXX ASM)
 
 # Allow overriding the toolchain by setting environment variables or cmake vars
 if(NOT CMAKE_C_COMPILER)
@@ -17,6 +17,7 @@ endif()
 set(MCU_FLAGS "-mcpu=cortex-m3 -mthumb")
 set(COMMON_FLAGS "-Wall -Wextra -ffunction-sections -fdata-sections -g ${MCU_FLAGS}")
 set(CMAKE_C_FLAGS "${COMMON_FLAGS} -std=gnu11")
+set(CMAKE_CXX_FLAGS "${COMMON_FLAGS} -std=gnu++14")
 set(CMAKE_EXE_LINKER_FLAGS "-Wl,--gc-sections ${MCU_FLAGS}")
 
 # Optimization and defines
@@ -25,8 +26,10 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O2")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2")
 else()
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O0 -Og")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -Og")
 endif()
 
 # Source directories
@@ -82,7 +85,7 @@ else()
 endif()
 
 # Pass flags to target
-target_compile_options(icarus_prime.elf PRIVATE ${CMAKE_C_FLAGS})
+target_compile_options(icarus_prime.elf PRIVATE ${CMAKE_C_FLAGS} ${CMAKE_CXX_FLAGS})
 target_link_libraries(icarus_prime.elf PRIVATE m)
 
 # Post-build: create binary and hex
