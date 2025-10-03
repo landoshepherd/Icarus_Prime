@@ -20,5 +20,7 @@ ENV ARM_TOOLCHAIN_URL="https://developer.arm.com/-/media/Files/downloads/gnu/13.
 RUN wget -qO- "${ARM_TOOLCHAIN_URL}" | tar -xJ -C /opt \
     && ln -s /opt/arm-gnu-toolchain-*/bin/* /usr/local/bin/
 
+COPY . /project
+
 # Set the working directory for our project code
-WORKDIR /Icarus_Prime
+WORKDIR /project
