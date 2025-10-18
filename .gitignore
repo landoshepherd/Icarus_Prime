@@ -4,6 +4,7 @@
 .project
 .cproject
 *.launch
+.metadata
 
 # --- CMake Build System ---
 # Build directories and generated files

@@ -44,7 +44,7 @@ target_compile_definitions(icarus_prime.elf PRIVATE
 
 # --- Target-Specific Linker Options ---
 # Set the linker script for the target.
-set(LINKER_SCRIPT "${CMAKE_SOURCE_DIR}/STM32F103C8TX_FLASH.ld")
+set(LINKER_SCRIPT "${CMAKE_SOURCE_DIR}/STM32F446RETX_FLASH.ld")
 if(EXISTS ${LINKER_SCRIPT})
     target_link_options(icarus_prime.elf PRIVATE
         -T${LINKER_SCRIPT}
