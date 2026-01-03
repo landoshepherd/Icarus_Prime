@@ -11,7 +11,15 @@ file(GLOB_RECURSE SOURCES
     "Core/Startup/*.s"
     "Drivers/STM32F4xx_HAL_Driver/Src/*.c"
 )
-add_executable(icarus_prime.elf ${SOURCES})
+
+file(GLOB_RECURSE FREERTOS_SOURCES
+    "Middlewares/Third_Party/FreeRTOS/Source/*.c"
+    "Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/*.c"
+    "Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c"
+    "Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c"
+)
+
+add_executable(icarus_prime.elf ${SOURCES} ${FREERTOS_SOURCES})
 
 
 # --- Target-Specific Include Directories ---
@@ -21,6 +29,9 @@ target_include_directories(icarus_prime.elf PRIVATE
     Drivers/STM32F4xx_HAL_Driver/Inc
     Drivers/CMSIS/Include
     Drivers/CMSIS/Device/ST/STM32F4xx/Include
+    Middlewares/Third_Party/FreeRTOS/Source/include
+    Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS
+    Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F
 )
 
 # --- MCU Flags (Cortex-M4, hardware FPU) ---
